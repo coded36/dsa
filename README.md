@@ -1,4 +1,29 @@
-
+SIDDHANTH U HEGDE
+3RD SEM CSE
+DATA STRUCTURES AND
+ALGORITHMS
+18GAEC9062
+UVCE
+PROGRAMS:
+1. Implement the following using arrays:
+a.) Stacks
+b.) Queues
+2. Write a program to implement:
+a.) Tower of Hanoi using recursion
+b.) Insertion sort
+3. Convert infix expression to prefix expression.
+4. Implement Double Ended Queue using singly linked list.
+5. Implement Singly Circular Linked List with header node.
+6. Perform various operations in Doubly Linked List.
+7. Create a binary tree and traverse inorder, preorder and postorder.
+8. Perform insert and delete operations in binary search tree.
+9. Evaluate expression tree using binary tree.
+10. Create right in threaded binary tree.
+11. Implement Hash tables.
+12. Implement Hashing using open addressing.
+13. Write all members of an array of structures to a file using fwrite(). Read the array from
+file and display on the screen.
+14. Compare the contents of two files. Write the difference in another file.
 1 a. Implement stacks using arrays:
 #include<stdio.h>
 #include<conio.h>
@@ -73,13 +98,12 @@ else
  printf(" %d\n",stack[i]);
 }
 }
-
+OUTPUT:
 
 
 
 
 1 b.Implement Queues using Arrays:
-
 #include<stdio.h>
 #include<conio.h>
 #define SIZE 3
@@ -186,9 +210,7 @@ tower(n-1,temp,dest,source);
 }
 return;
 }
-
-
-
+OUTPUT:
 2 b. Write a program to implement insertion sort:
 #include<stdio.h>
 #include<stdlib.h>
@@ -215,9 +237,6 @@ printf("%d ",a[i]);
 getch();
 }
 OUTPUT:
-
-
-
 3. Write a program to convert a given infix expression to prefix:
 #include<stdio.h>
 #include<conio.h>
@@ -1151,8 +1170,6 @@ switch(root->data)
 }
 }
 OUTPUT:
-
-
 10. Create Right in threaded binary tree:
 #include<conio.h>
 #include<stdio.h>
@@ -1297,8 +1314,6 @@ NODE inorder_successor(NODE ptr)
 OUTPUT:
 
 11. Implement Hash Tables:
-
-
 #include<stdlib.h>
 #include<conio.h>
 #include<stdio.h>
@@ -1323,12 +1338,8 @@ printf("%d ",a2[i]);
 getch();
 }
 OUTPUT:
-
-
-
-13. Implement Hashing using open addressing:
-
- #include<stdio.h>
+12. Implement Hashing using open addressing:
+#include<stdio.h>
 #include<conio.h>
 #include<stdlib.h>
 void main()
@@ -1379,10 +1390,7 @@ for(i=0;i<10;i++)
 }
 getch();
 }
-
-
-
-16. Write all the members of an array of structures to a file using fwrite(). Read the array from file
+13. Write all the members of an array of structures to a file using fwrite(). Read the array from file
 and display on the screen.
 #include<stdio.h>
 #include<conio.h>
@@ -1434,11 +1442,8 @@ while(fread(&temp,sizeof(struct student),1,fin))
  }
 fclose(fin);
 }
-
-
-
-
-17. Compare the contents of two files. Write the difference in another file.
+OUTPUT:
+14. Compare the contents of two files. Write the difference in another file.
 #include<stdio.h>
 #include<conio.h>
 void main()
