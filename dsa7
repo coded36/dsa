@@ -1,3 +1,4 @@
+7. Create a binary tree and traverse inorder, preorder and postorder
 #include <stdio.h>
 #include <conio.h>
 #include <stdlib.h>
