@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <conio.h>
+
+void main() {
+    int numbers[100], hashTable[100], stored[100];
+    int i, position, totalNumbers;
+
+    clrscr();  // Clear screen
+
+    // Get number of elements
+    printf("Enter how many numbers: ");
+    scanf("%d", &totalNumbers);
+
+    // Get numbers from the user
+    printf("Enter the numbers:\n");
+    for (i = 0; i < totalNumbers; i++)
+        scanf("%d", &numbers[i]);
+
+    // Storing values using last digit as the hash key
+    for (i = 0; i < totalNumbers; i++) {
+        position = numbers[i] % 10;  // Get last digit as position
+        hashTable[position] = stored[i] = numbers[i];
+        printf("Stored %d at hashTable[%d]\n", numbers[i], position);
+    }
+
+    // Displaying stored numbers
+    printf("Stored Numbers:\n");
+    for (i = 0; i < totalNumbers; i++)
+        printf("%d ", stored[i]);
+
+    getch();  // Pause screen
+}
