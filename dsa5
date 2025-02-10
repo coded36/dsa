@@ -1,0 +1,158 @@
+5. Implement Singly Circular Linked List with header node.
+#include <stdio.h>
+#include <conio.h> // For Turbo C++ functions
+#include <stdlib.h>
+
+// Node structure for circular linked list
+struct node {
+    int data;
+    struct node *next;
+};
+
+struct node *header = NULL; // Header pointer to manage the circular list
+
+void insert_front() {
+    struct node *newnode, *temp;
+    newnode = (struct node*)malloc(sizeof(struct node));
+
+    printf("Enter data: ");
+    scanf("%d", &newnode->data);
+
+    if (header == NULL) { 
+        header = newnode;
+        newnode->next = header; 
+    } else {
+        temp = header;
+        while (temp->next != header) { 
+            temp = temp->next; 
+        }
+        newnode->next = header;
+        temp->next = newnode;
+        header = newnode; 
+    }
+}
+
+void insert_rear() {
+    struct node *newnode, *temp;
+    newnode = (struct node*)malloc(sizeof(struct node));
+
+    printf("Enter data: ");
+    scanf("%d", &newnode->data);
+
+    if (header == NULL) { 
+        header = newnode;
+        newnode->next = header; 
+    } else {
+        temp = header;
+        while (temp->next != header) { 
+            temp = temp->next; 
+        }
+        temp->next = newnode;
+        newnode->next = header;
+    }
+}
+
+void delete_front() {
+    struct node *temp, *last;
+
+    if (header == NULL) {
+        printf("List is empty\n");
+        return;
+    }
+
+    temp = header;
+    last = header;
+    
+    while (last->next != header) { 
+        last = last->next; 
+    }
+
+    if (header->next == header) { 
+        header = NULL;
+    } else {
+        header = header->next;
+        last->next = header;
+    }
+
+    printf("%d deleted\n", temp->data);
+    free(temp);
+}
+
+void delete_rear() {
+    struct node *temp, *prev;
+
+    if (header == NULL) {
+        printf("List is empty\n");
+        return;
+    }
+
+    temp = header;
+    prev = NULL;
+    
+    while (temp->next != header) { 
+        prev = temp;
+        temp = temp->next;
+    }
+
+    if (temp == header) { 
+        header = NULL;
+    } else {
+        prev->next = header;
+    }
+
+    printf("%d deleted\n", temp->data);
+    free(temp);
+}
+
+void display() {
+    struct node *temp;
+
+    if (header == NULL) {
+        printf("List is empty\n");
+        return;
+    }
+
+    temp = header;
+    printf("Circular Linked List: ");
+    do {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    } while (temp != header);
+
+    printf("(HEAD)\n");
+}
+
+void main() {
+    int option;
+    clrscr();  // Clear screen for Turbo C++
+
+    while (1) {
+        printf("\n1. Insert at Front\n2. Insert at Rear\n3. Delete at Front\n4. Delete at Rear\n5. Display\n6. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &option);
+
+        switch (option) {
+            case 1:
+                insert_front();
+                break;
+            case 2:
+                insert_rear();
+                break;
+            case 3:
+                delete_front();
+                break;
+            case 4:
+                delete_rear();
+                break;
+            case 5:
+                display();
+                break;
+            case 6:
+                return; // Exiting loop
+            default:
+                printf("Invalid choice\n");
+        }
+    }
+
+    getch(); // Wait for user input before exiting (Now reachable)
+}
