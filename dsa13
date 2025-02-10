@@ -1,0 +1,58 @@
+#include <stdio.h>
+#include <conio.h>
+
+struct Student {
+    int regNumber; // Registration Number
+    char name[20]; // Student Name
+};
+
+void main() {
+    struct Student students[20], tempStudent;
+    FILE *fileWrite, *fileRead;
+    int i, studentCount;
+
+    clrscr(); // Clear screen (Turbo C++ specific)
+
+    // Open file for writing student data
+    fileWrite = fopen("student.txt", "w");
+    if (fileWrite == NULL) {
+        printf("Error: Could not open file for writing...");
+        getch();
+        exit(0);
+    }
+
+    // Get number of students
+    printf("Enter number of students: ");
+    scanf("%d", &studentCount);
+
+    // Input student details
+    for (i = 0; i < studentCount; i++) {
+        printf("\nFor student %d:\n", i + 1);
+        printf("Name: ");
+        scanf("%s", students[i].name);
+        printf("Register Number: ");
+        scanf("%d", &students[i].regNumber);
+    }
+
+    // Write student data to file
+    fwrite(students, sizeof(struct Student), studentCount, fileWrite);
+    fclose(fileWrite);
+
+    // Open file for reading student data
+    fileRead = fopen("student.txt", "r");
+    if (fileRead == NULL) {
+        printf("Error: Could not read from file...");
+        getch();
+        exit(0);
+    }
+
+    // Read and display student data from the file
+    printf("\nData read from file:\n");
+    while (fread(&tempStudent, sizeof(struct Student), 1, fileRead)) {
+        printf("Name: %s\n", tempStudent.name);
+        printf("Register Number: %d\n\n", tempStudent.regNumber);
+        getch();
+    }
+
+    fclose(fileRead);
+}
