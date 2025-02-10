@@ -1,0 +1,162 @@
+1 a. Implement stacks using arrays:
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+#define SIZE 3
+int stack[SIZE];
+int push(int);
+int pop(int);
+void display(int);
+void main()
+{
+int top=-1,option;
+clrscr();
+while(1)
+{
+ printf("\nStack operations\n");
+ printf("1.Push\n2.Pop\n3.Display\n4.Exit\n");
+ printf("Enter your choice: ");
+ scanf("%d",&option);
+ switch(option)
+ {
+ case 1: top=push(top);
+getch();
+clrscr();
+break;
+ case 2: top=pop(top);
+getch();
+clrscr();
+break;
+ case 3: display(top);
+getch();
+clrscr();
+break;
+ case 4: exit(0); default: printf("Invalid choice\n");
+ }
+}
+}
+int push(int top)
+{
+int item;
+if(top==(SIZE-1))
+{
+ printf("Stack is full\n");
+ return top;
+}
+printf("Enter the item to be pushed: ");
+scanf("%d",&item);
+stack[++top]=item;
+printf("%d is successfully pushed\n",item);
+return top;
+}
+int pop(int top)
+{
+if(top==-1)
+{
+ printf("Stack is empty\n");
+ return top;
+}
+printf("%d is successfully popped\n",stack[top]);
+top--;
+return top;
+}
+void display(int top)
+{
+int i;
+if(top==-1)
+ printf("Stack is empty\n");
+else
+{
+ printf("Status of stack\n");
+ for(i=top;i>=0;i--)
+ printf(" %d\n",stack[i]);
+}
+}
+
+
+
+
+
+
+1 b.Implement Queues using Arrays:
+#include<stdio.h>
+#include<conio.h>
+#define SIZE 3
+int rear=-1,front=-1,queue[20];
+void main()
+{
+int ch=1,option;
+clrscr();
+while(ch)
+{
+ printf("Queue operations\n");
+ printf("1.Insert\n2.Delete\n3.Display\n4.Exit\n");
+ printf("Enter your choice:");
+ scanf("%d",&option);
+ switch(option)
+ {
+case 1:qinsert();
+ getch();
+ clrscr();
+ break;
+case 2:qdelete();
+ getch();
+ clrscr();
+ break;
+case 3:qdisplay();
+ getch();
+ clrscr();
+ break;
+case 4:exit(0);
+default:printf("invalid choice\n");
+break;
+}
+}
+}
+qinsert()
+{
+int num;
+if(rear==(SIZE-1))
+{
+ printf("Queue is full\n");
+ return;
+}
+ printf("Enter the element to insert:");
+ scanf("%d",&num);
+ queue[++rear]=num;
+ printf("%d is successfully inserted\n",num);
+ if(front==-1)
+ front++;
+ return;
+}
+qdelete()
+{
+if(front==-1)
+{
+printf("Queue is empty\n");
+return;
+}
+if(front==rear)
+{
+printf("Deleted element:%d",queue[front]);
+front=-1;
+rear=-1;
+return;
+}
+printf("Deleted element:%d",queue[front]);
+front++;
+return;
+ }
+ qdisplay()
+ {
+int i;
+if(front==-1)
+{
+printf("queue is empty\n");
+return;
+}
+printf("status of queue is\n");
+for(i=front;i<=rear;i++)
+ printf("%d\t",queue[i]);
+ return;
+ }
