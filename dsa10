@@ -1,0 +1,97 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Node structure for right-threaded binary tree
+struct node {
+    int data;
+    struct node *left, *right;
+    int isThreaded; // 1 if right is a thread, 0 otherwise
+};
+
+// Function to create a new node
+struct node* create() {
+    int x;
+    struct node *newnode;
+    newnode = (struct node*)malloc(sizeof(struct node));
+
+    printf("Enter data or -1 for no data: ");
+    scanf("%d", &x);
+
+    if (x == -1) {
+        free(newnode);
+        return NULL;
+    }
+
+    newnode->data = x;
+    newnode->left = NULL;
+    newnode->right = NULL;
+    newnode->isThreaded = 0;
+
+    printf("Enter the left child of %d:\n", x);
+    newnode->left = create();
+
+    printf("Enter the right child of %d:\n", x);
+    newnode->right = create();
+
+    // Threading logic: Find inorder predecessor and link it
+    if (newnode->left) {
+        struct node *temp = newnode->left;
+        while (temp->right && !temp->isThreaded) {
+            temp = temp->right;
+        }
+        temp->right = newnode;
+        temp->isThreaded = 1;
+    }
+
+    return newnode;
+}
+
+// Function to find the leftmost node in a tree (for threaded traversal)
+struct node* leftmost(struct node* root) {
+    while (root && root->left) {
+        root = root->left;
+    }
+    return root;
+}
+
+// Inorder traversal using threads (no recursion)
+void inorderThreaded(struct node *root) {
+    struct node *curr = leftmost(root);
+
+    printf("\nInorder Traversal (Threaded): ");
+    while (curr) {
+        printf("%d ", curr->data);
+
+        // If threaded, move to the successor
+        if (curr->isThreaded)
+            curr = curr->right;
+        else
+            curr = leftmost(curr->right);
+    }
+}
+
+// Function to free the tree
+void freeTree(struct node *root) {
+    if (root == NULL) {
+        return;
+    }
+    freeTree(root->left);
+
+    // Free right child only if it is **not threaded**
+    if (!root->isThreaded) {
+        freeTree(root->right);
+    }
+    
+    free(root);
+}
+
+int main() {
+    struct node *root = create();
+
+    printf("\nPerforming Inorder Threaded Traversal:\n");
+    inorderThreaded(root);
+
+    freeTree(root); // Free allocated memory
+
+    return 0;
+}
