@@ -1,0 +1,89 @@
+9. Evaluate expression tree using binary tree.
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <ctype.h>
+#include <conio.h>  // Required for Turbo C++
+
+struct node {
+    char data;
+    struct node *lchild, *rchild;
+};
+
+// Function prototypes
+struct node* create_tree(char postfix[20]); 
+float eval(struct node* root);
+
+void main() {  
+    char postfix[20]; 
+    float result;
+    struct node* root;  // Moved declaration to the start
+
+    clrscr();  // Clear screen for Turbo C++
+
+    printf("Enter the postfix expression: ");
+    scanf("%s", postfix);
+
+    root = create_tree(postfix);  
+    result = eval(root);
+
+    printf("Result = %f\n", result);
+    getch();  // Wait for user input before exiting (Turbo C++)
+}
+
+// Function to create an expression tree from postfix notation
+struct node* create_tree(char postfix[20]) {  
+    struct node* stack[20];  
+    struct node* temp;  
+    int i, j;
+    char symbol;
+
+    i = 0;
+    j = 0;
+
+    while ((symbol = postfix[i]) != '\0') {
+        temp = (struct node*)malloc(sizeof(struct node));  // Variable declared at start
+        temp->lchild = NULL;
+        temp->rchild = NULL;
+        temp->data = symbol;
+
+        if (isalnum(symbol)) {  
+            stack[j] = temp;
+            j++;
+        } else {  
+            j--;
+            temp->rchild = stack[j];
+            j--;
+            temp->lchild = stack[j];
+            stack[j] = temp;
+            j++;
+        }
+        i++;
+    }
+    return stack[--j];
+}
+
+// Function to evaluate the expression tree
+float eval(struct node* root) {
+    float left, right, num;  // Moved variable declaration to the top
+
+    if (!root) return 0;
+
+    if (isdigit(root->data)) 
+        return root->data - '0';  
+
+    left = eval(root->lchild);
+    right = eval(root->rchild);
+
+    switch (root->data) {
+        case '+': return left + right;
+        case '-': return left - right;
+        case '*': return left * right;
+        case '/': return left / right;
+        case '^': return pow(left, right);
+        default:
+            printf("Enter the value of %c: ", root->data);
+            scanf("%f", &num);
+            return num;
+    }
+}
