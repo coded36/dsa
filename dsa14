@@ -1,0 +1,72 @@
+//Compare the contents of two files. Write the difference in another file.
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_SIZE 1000
+
+void writeToFile(const char *filename) {
+    char content[MAX_SIZE];
+    FILE *file = fopen(filename, "w");
+    if (file == NULL) {
+        printf("Error: Could not open file %s\n", filename);
+        exit(1);
+    }
+
+   
+    printf("Enter content for %s:\n", filename);
+    fgets(content, MAX_SIZE, stdin); // Read input with spaces
+    fprintf(file, "%s", content);
+    fclose(file);
+}
+
+void findDifference(const char *file1, const char *file2) {
+    char word1[50], word2[50];
+    int foundDifference = 0;
+    FILE *fp1 = fopen(file1, "r");
+    FILE *fp2 = fopen(file2, "r");
+
+    if (fp1 == NULL || fp2 == NULL) {
+        printf("Error: Unable to open one or more files.\n");
+        exit(1);
+    }
+
+
+
+    printf("Difference between %s and %s are:\n", file1, file2);
+
+    while (fscanf(fp1, "%s", word1) != EOF && fscanf(fp2, "%s", word2) != EOF) {
+        if (strcmp(word1, word2) != 0) {
+            printf("%s ", word2); // Print only the differing word from file2
+            foundDifference = 1;
+        }
+    }
+
+    // Print remaining words in file2 if it's longer
+    while (fscanf(fp2, "%s", word2) != EOF) {
+        printf("%s ", word2);
+        foundDifference = 1;
+    }
+
+    if (!foundDifference)
+        printf("No differences found.");
+
+    printf("\n");
+
+    fclose(fp1);
+    fclose(fp2);
+}
+
+int main() {
+    char file1[] = "file1.txt";
+    char file2[] = "file2.txt";
+
+    writeToFile(file1);
+    writeToFile(file2);
+
+    findDifference(file1, file2);
+
+    return 0;
+}
+
