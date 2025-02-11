@@ -11,7 +11,7 @@ struct node {
 struct node* create(int data);
 struct node* insert(struct node* root, int data);
 struct node* findmin(struct node* root);
-struct node* deleteNode(struct node* root, int data);  // Renamed to avoid conflict with `delete` keyword in C++
+struct node* deleteNode(struct node* root, int data); 
 void inorder(struct node* root);
 
 struct node* create(int data) {
