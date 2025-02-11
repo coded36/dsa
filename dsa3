@@ -4,7 +4,7 @@
 #include <string.h>
 #include <ctype.h>
 
-#define MAX 100  // Maximum size for expressions and stack
+#define MAX 100  
 
 // Function declarations
 void push(char);
@@ -12,21 +12,21 @@ char pop();
 void convertInfixToPrefix(char[], char[]);
 int getPrecedence(char);
 
-// Global stack and top pointer
+
 char operatorStack[MAX];
 int top = -1;
 
-// Push function to add an operator to the stack
+
 void push(char operator) {
     operatorStack[++top] = operator;
 }
 
-// Pop function to remove and return the top element from the stack
+
 char pop() {
     return operatorStack[top--];
 }
 
-// Function to return precedence of operators
+
 int getPrecedence(char operator) {
     if (operator == '^')
         return 3;
@@ -37,16 +37,16 @@ int getPrecedence(char operator) {
     return 0;
 }
 
-// Function to convert infix expression to prefix
+
 void convertInfixToPrefix(char infixExpression[], char prefixExpression[]) {
     int i, prefixIndex = 0;
     char reversedExpression[MAX];
 
-    // Reverse the infix expression
+
     strcpy(reversedExpression, infixExpression);
     strrev(reversedExpression);
 
-    // Convert '(' to ')' and vice versa
+   
     for (i = 0; reversedExpression[i] != '\0'; i++) {
         if (reversedExpression[i] == ')') {
             reversedExpression[i] = '(';
@@ -55,26 +55,26 @@ void convertInfixToPrefix(char infixExpression[], char prefixExpression[]) {
         }
     }
 
-    // Process the reversed infix expression
+  
     for (i = 0; reversedExpression[i] != '\0'; i++) {
         char currentChar = reversedExpression[i];
 
-        // If operand, add to prefix output
+      
         if (isalnum(currentChar)) {
             prefixExpression[prefixIndex++] = currentChar;
         }
-        // If opening parenthesis, push to stack
+    
         else if (currentChar == ')') {
             push(currentChar);
         }
-        // If closing parenthesis, pop and add to output until '(' is found
+       
         else if (currentChar == '(') {
             while (top != -1 && operatorStack[top] != ')') {
                 prefixExpression[prefixIndex++] = pop();
             }
             pop();  // Remove '(' from stack
         }
-        // If operator, pop higher precedence operators and push current one
+       
         else {
             while (top != -1 && getPrecedence(operatorStack[top]) >= getPrecedence(currentChar)) {
                 prefixExpression[prefixIndex++] = pop();
@@ -83,19 +83,19 @@ void convertInfixToPrefix(char infixExpression[], char prefixExpression[]) {
         }
     }
 
-    // Pop remaining operators from the stack
+  
     while (top != -1) {
         prefixExpression[prefixIndex++] = pop();
     }
 
-    // Null terminate the prefix expression
+   
     prefixExpression[prefixIndex] = '\0';
 
-    // Reverse the final prefix expression
+
     strrev(prefixExpression);
 }
 
-// Main function
+
 void main() {
     char infixExpression[MAX], prefixExpression[MAX];
 
@@ -103,10 +103,10 @@ void main() {
     printf("Enter the infix expression: ");
     scanf("%s", infixExpression);
 
-    // Convert infix to prefix
+
     convertInfixToPrefix(infixExpression, prefixExpression);
 
-    // Display the result
+
     printf("\nPrefix expression: %s", prefixExpression);
 
     getch();
